@@ -18,7 +18,7 @@ class VideoMambaWrapper(nn.Module):
     con supporto per fine-tuning e stampa dello stato dei layer.
     """
 
-    def __init__(self,load_pretrained=False,apply_finetune=False,load_checkpoint=False,get_checkpoint_path=None,train_last_layers=0,num_class=0):
+    def __init__(self,load_pretrained=False,apply_finetune=False,load_checkpoint=False,head_remove=False,get_checkpoint_path=None,train_last_layers=0,num_class=0):
         super().__init__()
 
         self.apply_finetune=apply_finetune
@@ -28,7 +28,7 @@ class VideoMambaWrapper(nn.Module):
         self.train_last_layers=train_last_layers
 
         # Carica tutto il modello (backbone + head)
-        self.backbone = self.videomamba_middle(pretrained=load_pretrained,checkpoint=load_checkpoint,checkpoint_path=get_checkpoint_path,num_class=num_class)
+        self.backbone = self.videomamba_middle(pretrained=load_pretrained,checkpoint=load_checkpoint,checkpoint_path=get_checkpoint_path,num_class=num_class,head_remove=head_remove)
         
         self.apply_finetune_strategy()
     
@@ -48,8 +48,9 @@ class VideoMambaWrapper(nn.Module):
     }
 
     @staticmethod
-    def videomamba_middle(pretrained=False, checkpoint=False, checkpoint_path=None,num_class=0, **kwargs):
-
+    def videomamba_middle(pretrained=False, checkpoint=False, checkpoint_path=None,num_class=0,head_remove=False, **kwargs):
+        print(torch.cuda.is_available())
+        print(torch.cuda.device_count())
         model = VisionMamba(
             patch_size=16, 
             embed_dim=576,
@@ -64,19 +65,28 @@ class VideoMambaWrapper(nn.Module):
             **kwargs
         )
         model.default_cfg = _cfg()
-        print(model)
 
-        if  pretrained:
-            print("[Info] Caricamento pesi pre-addestrati standard videomamba_m16_k400_mask_ft_f16_res224 ")
+        if pretrained:
+            print("[Info] Caricamento pesi pre-addestrati standard videomamba_m16_k400_mask_ft_f16_res224")
             state_dict = torch.load(_MODELS["videomamba_m16_k400_mask_ft_f16_res224"], map_location='cpu')
             load_videomamba_weights(model, state_dict, center=True)
+
         if checkpoint:
-            model.head
             print("[Info] Caricamento checkpoint fine-tuned")
             state_dict = torch.load(checkpoint_path, map_location='cpu')
             state_dict = VideoMambaWrapper.remove_prefix_from_state_dict(state_dict, prefix="backbone.")
+
+            if  head_remove:
+                # Rimuove la head dal checkpoint
+                state_dict = {k: v for k, v in state_dict.items() if not k.startswith('head.')}
+                print("[Checkpoint] Head rimossa dal checkpoint.")
+            else:
+                print("[Checkpoint] Caricamento completo incluso la head.")
+
             missing, unexpected = model.load_state_dict(state_dict, strict=False)
-            print(f"[Checkpoint] Pesi caricati. Mancanti: {missing}, Inattesi: {unexpected}") 
+            print(f"[Checkpoint] Pesi caricati. Mancanti: {missing}, Inattesi: {unexpected}")
+
+        return model
 
 
         return model  

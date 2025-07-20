@@ -55,6 +55,7 @@ model = VideoMambaWrapper(
     load_pretrained=False,
     load_checkpoint=True,
     apply_finetune=True,
+    head_remove=True,
     get_checkpoint_path="/home/vrai/video-mamba/model/checkpoints/best/melr_10_layer_AdamW_B8_W005_DOUT_02_DPath_05_LR_2e4/best_model.pth",
     train_last_layers=TRAIN_LAST_LAYERS,
     num_class=NUM_CLASSES

@@ -6,9 +6,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torchmetrics.classification import MulticlassPrecision, MulticlassRecall, MulticlassF1Score
-from torch.optim.lr_scheduler import ReduceLROnPlateau
 from tqdm import tqdm
-from torch.optim.lr_scheduler import CosineAnnealingLR
+
 
 # ========== PATH SETUP ==========
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -53,6 +52,7 @@ model = VideoMambaWrapper(
     load_pretrained=False,
     load_checkpoint=True,
     apply_finetune=True,
+    head_remove=True,
     get_checkpoint_path="/home/vrai/video-mamba/model/checkpoints/best/melr_10_layer_AdamW_B8_W005_DOUT_02_DPath_05_LR_2e4/best_model.pth",
     train_last_layers=TRAIN_LAST_LAYERS,
     num_class=NUM_CLASSES

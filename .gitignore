@@ -1,4 +1,4 @@
-# Ignora i file di checkpoint (ad esempio PyTorch, TensorFlow, ecc.)
+# Ignora i file di checkpoint 
 *.ckpt
 *.pt
 *.pth
@@ -10,9 +10,8 @@ pretrain/
 VideoMamba/
 data/
 checkpoints/
-plots/
-runs/
-report/
+
+
 
 # Altri file comuni da ignorare
 __pycache__/
