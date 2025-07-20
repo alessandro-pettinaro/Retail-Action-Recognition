@@ -1,0 +1,26 @@
+experiment_name: test1_mamba_last4
+model_name: VideoMamba
+
+# Dataset
+dataset_base_path: ./dataset      
+train_subdir: train
+val_subdir: val
+num_classes: 6
+
+# Parametri di training
+training:
+  num_epochs: 40
+  batch_size: 4
+  learning_rate: 0.0001
+  num_frames: 16
+  image_size: [224, 224]
+  seed: 42
+
+# Strategia di fine-tuning
+finetune:
+  train_last_layers: 10    # Allena solo gli ultimi 4 blocchi
+  train_head: true        # Allena anche la testa
+
+# Logging e salvataggio
+log:
+  base_path: ./experiments_logs/

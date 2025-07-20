@@ -1,0 +1,27 @@
+# Ignora i file di checkpoint (ad esempio PyTorch, TensorFlow, ecc.)
+*.ckpt
+*.pt
+*.pth
+
+# Ignora cartella model e tutto ciò che contiene
+model/checkpoints
+# Ignora cartella pretrain e tutto ciò che contiene
+pretrain/
+VideoMamba/
+data/
+checkpoints/
+plots/
+runs/
+report/
+
+# Altri file comuni da ignorare
+__pycache__/
+*.py[cod]
+*.log
+
+# Virtualenv / ambiente
+venv/
+.env/
+
+# File di sistema
+.DS_Store
