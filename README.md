@@ -117,5 +117,5 @@ source venv/bin/activate   # su Windows: venv\Scripts\activate
 ## Documentazione
 
 Per l'analisi completa del progetto scelte progettuali, esperimenti e risultati dettagliati  è disponibile la relazione:
- **[Leggi la relazione completa](relazione.pdf)**
+ **[Leggi la relazione completa](Relazione_VideoMamba.pdf)**
 
