@@ -17,14 +17,11 @@ Progetto di deep learning per il **riconoscimento di azioni davanti a uno scaffa
 - [Il modello: VideoMamba](#il-modello-videomamba)
 - [Dataset](#dataset)
 - [Pipeline di sviluppo](#pipeline-di-sviluppo)
-- [Viste di classificazione](#viste-di-classificazione)
 - [Metriche di valutazione](#metriche-di-valutazione)
 - [Pesi dei modelli](#pesi-dei-modelli)
 - [Requisiti](#requisiti)
 - [Installazione e avvio](#installazione-e-avvio)
-- [Risultati](#risultati)
 - [Documentazione](#documentazione)
-- [Autore](#autore)
 
 ---
 
@@ -40,7 +37,7 @@ In questo progetto è stato utilizzato **VisionMamba** nella configurazione **Mi
 
 ## Obiettivo
 
-Addestrare e valutare VideoMamba per il riconoscimento di azioni in ambito **retail** — come l'ispezione dei prodotti o l'interazione con gli scaffali (presa e rilascio di articoli) — utilizzando due dataset: **MERL Shopping Dataset** ed **ExtraEye**.
+Addestrare e valutare VideoMamba per il riconoscimento di azioni in ambito **retail**  come l'ispezione dei prodotti o l'interazione con gli scaffali (presa e rilascio di articoli) utilizzando due dataset: **MERL Shopping Dataset** ed **ExtraEye**.
 
 ---
 
@@ -57,8 +54,8 @@ Addestrare e valutare VideoMamba per il riconoscimento di azioni in ambito **ret
 
 ## Dataset
 
-- **MERL Shopping Dataset** — utilizzato nella prima fase per l'adattamento al dominio retail.
-- **ExtraEye** — utilizzato nella seconda fase per la classificazione binaria delle azioni *take* e *release*.
+- **MERL Shopping Dataset** : utilizzato nella prima fase per l'adattamento al dominio retail.
+- **ExtraEye**:  utilizzato nella seconda fase per la classificazione binaria delle azioni *take* e *release*.
 
 ---
 
@@ -76,22 +73,6 @@ Ulteriore fine-tuning sul dataset **ExtraEye**, riutilizzando i pesi di MERL-2, 
 
 In entrambe le fasi sono state adottate diverse strategie di fine-tuning e tecniche di **cross-validation**.
 
----
-
-## Viste di classificazione
-
-L'analisi è stata condotta sulle tre principali viste di classificazione video:
-
-| Vista | Significato |
-| --- | --- |
-| **FPV** | First-Person View |
-| **TPV** | Third-Person View |
-| **TOP** | Top-View |
-
-È stato inoltre condotto un confronto tra alcune classi dei due dataset, per valutare coerenza, robustezza ed eventuali criticità del modello in contesti diversi.
-
----
-
 ## Metriche di valutazione
 
 Le performance del modello sono state analizzate tramite:
@@ -108,12 +89,7 @@ Le performance del modello sono state analizzate tramite:
 
 I pesi dei modelli addestrati (MERL-2 e i modelli su ExtraEye) sono disponibili al seguente link:
 
-**[Scarica i pesi](https://univpm-my.sharepoint.com/:f:/g/personal/s1126383_studenti_univpm_it/Ekj0_gLF7zhNhNSdOz1v22gBLLpkfa7lDpoQfvjZgYpU_w?e=8FMgkj)**
-
-Dopo il download, posiziona i file nella cartella `checkpoints/` (o nel percorso indicato nei file di configurazione).
-
-> I file dei pesi non sono inclusi nella repository per via delle dimensioni; sono ospitati esternamente.
-
+  **[Scarica i pesi](https://univpm-my.sharepoint.com/:f:/g/personal/s1126383_studenti_univpm_it/Ekj0_gLF7zhNhNSdOz1v22gBLLpkfa7lDpoQfvjZgYpU_w?e=8FMgkj)**
 ---
 
 ## Requisiti
@@ -121,8 +97,6 @@ Dopo il download, posiziona i file nella cartella `checkpoints/` (o nel percorso
 - [Python 3.x](https://www.python.org/)
 - [PyTorch](https://pytorch.org/)
 - GPU con supporto CUDA (consigliata per l'addestramento)
-
-> Elenca le dipendenze esatte in un file `requirements.txt`.
 
 ---
 
@@ -136,39 +110,12 @@ cd RetailMamba
 # (consigliato) crea un ambiente virtuale
 python -m venv venv
 source venv/bin/activate   # su Windows: venv\Scripts\activate
-
-# Installa le dipendenze
-pip install -r requirements.txt
 ```
-
-> Aggiungi qui i comandi specifici per avviare l'addestramento e la valutazione
-> (es. `python train.py --config configs/merl.yaml`), adattandoli alla struttura del tuo progetto.
-
----
-
-## Risultati
-
-> Compila la tabella con le metriche finali ottenute per ciascuna vista.
-> Aggiungi eventuali grafici di Loss/Accuracy e le matrici di confusione: sono la parte
-> che fa più colpo in un progetto di questo tipo (caricali nella cartella `images/`).
-
-| Vista | Accuracy | Precision | Recall | F1 Score |
-| --- | --- | --- | --- | --- |
-| FPV | – | – | – | – |
-| TPV | – | – | – | – |
-| TOP | – | – | – | – |
 
 ---
 
 ## Documentazione
 
-Per l'analisi completa del progetto — scelte progettuali, esperimenti e risultati dettagliati — è disponibile la relazione:
+Per l'analisi completa del progetto scelte progettuali, esperimenti e risultati dettagliati  è disponibile la relazione:
+ **[Leggi la relazione completa](relazione.pdf)**
 
-📄 **[Leggi la relazione completa](docs/relazione.pdf)**
-
----
-
-## Autore
-
-**Alessandro Pettinaro**
-[GitHub](https://github.com/alessandro-pettinaro)
